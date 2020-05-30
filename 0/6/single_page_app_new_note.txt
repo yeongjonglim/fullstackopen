@@ -1,0 +1,9 @@
+title "Part 0.6: Single Page App - New Note"
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+server-->browser: Status Code: 201 Created
+
+note over browser:
+browser starts executing js-code that updates
+the current HTML document with the new note
+end note
