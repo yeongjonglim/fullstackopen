@@ -56,7 +56,7 @@ coverage.xml
 
 # testing
 /coverage
-*.json
+db.json
 
 # production
 /build
