@@ -3,12 +3,15 @@ import personService from '../services/persons';
 import Persons from './Persons';
 import PersonForm from './PersonForm';
 import Filter from './Filter';
+import Notification from './Notification';
+import '../index.css';
 
 const App = () => {
     const [ persons, setPersons ] = useState([])
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
     const [ search, setSearch ] = useState('')
+    const [ notificationMessage, setNotificationMessage ] = useState('')
 
     useEffect(() => {
         personService
@@ -35,17 +38,30 @@ const App = () => {
                 .remove(person.id)
                 .then(() => {
                     setPersons(persons.filter(pers => pers.id !== person.id))
-                });
+                    setNotificationMessage({
+                        message: `Deleted ${person.name}`,
+                        type: 'inform'
+                    })
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 5000)
+                })
+                .catch(error => {
+                    setNotificationMessage({
+                        message: `Person '${person.name}' was already removed from server`,
+                        type: 'error'
+                    })
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 5000)
+                })
         }
     }
 
-    const personsToShow = persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()));
-
     const addPerson = (event) => {
         event.preventDefault();
-        const exists = (person) => person.name === newName;
 
-        if (persons.some(exists)) {
+        if (persons.some((person) => person.name === newName)) {
             const person = persons.find(pers => pers.name === newName);
             const result = window.confirm(`${person.name} is already in your phonebook, do you want to replace the old phone number?`);
             if (result) {
@@ -57,6 +73,13 @@ const App = () => {
                     .update(person.id, changedPerson)
                     .then(returnedPerson => {
                         setPersons(persons.map(pers => pers.id !== returnedPerson.id ? pers : returnedPerson));
+                        setNotificationMessage({
+                            message: `Updated ${returnedPerson.name}`,
+                            type: 'inform'
+                        })
+                        setTimeout(() => {
+                            setNotificationMessage(null)
+                        }, 5000)
                     })
             }
         } else if (newName === '' || newNumber === '') {
@@ -70,7 +93,14 @@ const App = () => {
                 .create(personObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
-                });
+                    setNotificationMessage({
+                        message: `Added ${returnedPerson.name}`,
+                        type: 'inform'
+                    })
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 5000)
+                })
 
             setNewName('');
             setNewNumber('');
@@ -82,11 +112,12 @@ const App = () => {
         <div>
             <h2>Phonebook</h2>
             <h3>Search</h3>
+            <Notification message={notificationMessage} />
             <Filter search={search} onChange={handleChange} />
             <h3>Add a Number</h3>
             <PersonForm onSubmit={addPerson} newName={newName} newNumber={newNumber} onChange={handleChange} />
             <h3>Numbers</h3>
-            <Persons personsToShow={personsToShow} handleDelete={handleDelete} />
+            <Persons personsToShow={persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()))} handleDelete={handleDelete} />
         </div>
     )
 }
