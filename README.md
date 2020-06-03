@@ -17,4 +17,4 @@ Exercises(1.12 - 1.14): [Anecdotes](/1/anecdotes)
 
 Exercises(2.1 - 2.5): [Course Info (Upgraded)](/2/courseinfo)<br>
 Exercises(2.6 - 2.11, 2.15 - 2.20): [Phonebook](/2/phonebook)<br>
-Exercises(2.12 - 2.14): [Countries](/2/countrie)<br>
+Exercises(2.12 - 2.14): [Countries](/2/countries)<br>
