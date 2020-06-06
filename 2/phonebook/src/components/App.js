@@ -31,6 +31,20 @@ const App = () => {
         }
     }
 
+    const handleNotificationMessage = (message, type) => {
+        if (type !== 'error') {
+            setNewName('');
+            setNewNumber('');
+        }
+        setNotificationMessage({
+            message: message,
+            type: type
+        })
+        setTimeout(() => {
+            setNotificationMessage(null)
+        }, 5000)
+    }
+
     const handleDelete = (person) => {
         const result = window.confirm(`Delete ${person.name} from your phonebook?`);
         if (result) {
@@ -38,22 +52,10 @@ const App = () => {
                 .remove(person.id)
                 .then(() => {
                     setPersons(persons.filter(pers => pers.id !== person.id))
-                    setNotificationMessage({
-                        message: `Deleted ${person.name}`,
-                        type: 'inform'
-                    })
-                    setTimeout(() => {
-                        setNotificationMessage(null)
-                    }, 5000)
+                    handleNotificationMessage(`Deleted ${person.name}`, 'inform')
                 })
                 .catch(error => {
-                    setNotificationMessage({
-                        message: `Person '${person.name}' was already removed from server`,
-                        type: 'error'
-                    })
-                    setTimeout(() => {
-                        setNotificationMessage(null)
-                    }, 5000)
+                    handleNotificationMessage(`Person ${person.name} was already removed from server`, 'error')
                 })
         }
     }
@@ -73,17 +75,12 @@ const App = () => {
                     .update(person.id, changedPerson)
                     .then(returnedPerson => {
                         setPersons(persons.map(pers => pers.id !== returnedPerson.id ? pers : returnedPerson));
-                        setNotificationMessage({
-                            message: `Updated ${returnedPerson.name}`,
-                            type: 'inform'
-                        })
-                        setTimeout(() => {
-                            setNotificationMessage(null)
-                        }, 5000)
+                        handleNotificationMessage(`Updated ${returnedPerson.name}`, 'inform')
+                    })
+                    .catch(error => {
+                        handleNotificationMessage(error.response.data.error, 'error')
                     })
             }
-        } else if (newName === '' || newNumber === '') {
-            alert('Missing Name or Number');
         } else {
             const personObject = {
                 name: newName,
@@ -93,17 +90,11 @@ const App = () => {
                 .create(personObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
-                    setNotificationMessage({
-                        message: `Added ${returnedPerson.name}`,
-                        type: 'inform'
-                    })
-                    setTimeout(() => {
-                        setNotificationMessage(null)
-                    }, 5000)
+                    handleNotificationMessage(`Added ${returnedPerson.name}`, 'inform')
                 })
-
-            setNewName('');
-            setNewNumber('');
+                .catch(error => {
+                    handleNotificationMessage(error.response.data.error, 'error')
+                })
         }
     }
 

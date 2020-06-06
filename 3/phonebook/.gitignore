@@ -1,0 +1,6 @@
+# dev
+node_modules
+.env
+.eslint*
+mongo.js
+*.rest
