@@ -1,5 +1,10 @@
 # Repository for Fullstack Training
 
+Tools used: 
+- [Vim](https://github.com/vim/vim)
+- [Vim REST Console (VRC)](https://github.com/diepm/vim-rest-console)
+- [Syntastic](https://github.com/vim-syntastic/syntastic)
+
 Reference: [Full stack open 2020](https://fullstackopen.com/en)
 
 ## Part 0
