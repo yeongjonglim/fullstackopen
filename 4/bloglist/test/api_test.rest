@@ -1,0 +1,35 @@
+# Getting all persons from db
+http://localhost:3003
+GET /api/blogs/
+
+# Getting specific person from db
+http://localhost:3001
+GET /api/persons/5edb31a04835e434361ac934
+
+# Getting missing person from db
+http://localhost:3001
+GET /api/persons/99
+
+# Create new person in db
+http://localhost:3003
+Content-Type: application/json
+POST /api/blogs
+{
+    "title":"Hello World",
+    "author":"voltendron",
+    "url":"https://pb-fso.herokuapp.com/",
+    "likes":49583
+}
+
+# Create new person in db
+http://localhost:3001
+Content-Type: application/json
+PUT /api/persons/5edb4c8e9750a23959a8665a
+{
+    "name":"Hello World",
+    "number":"01229"
+}
+
+http://localhost:3001
+# Deleting specific person from db
+DELETE /api/persons/5edb31e285ac9e316932c937
