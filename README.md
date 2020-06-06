@@ -21,5 +21,5 @@ Exercises(2.12 - 2.14): [Countries](/2/countries)<br>
 
 ## Part 3
 
-Exercises: [Phonebook](/3/phonebook)<br>
+Exercises: [Phonebook (Backend + Frontend)](/3/phonebook)<br>
 Heroku: [Phonebook](https://pb-fso.herokuapp.com/)<br>
