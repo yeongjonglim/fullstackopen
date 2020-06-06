@@ -102,8 +102,8 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
-            <h3>Search</h3>
             <Notification message={notificationMessage} />
+            <h3>Search</h3>
             <Filter search={search} onChange={handleChange} />
             <h3>Add a Number</h3>
             <PersonForm onSubmit={addPerson} newName={newName} newNumber={newNumber} onChange={handleChange} />
