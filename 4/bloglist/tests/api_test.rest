@@ -22,12 +22,11 @@ POST /api/blogs
 }
 
 # Create new person in db
-http://localhost:3001
+http://localhost:3003
 Content-Type: application/json
-PUT /api/persons/5edb4c8e9750a23959a8665a
+PUT /api/blogs/5edbaaf9ab4b3ebb3531ff62
 {
-    "name":"Hello World",
-    "number":"01229"
+    "likes":12
 }
 
 http://localhost:3001
