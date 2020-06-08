@@ -1,34 +1,67 @@
-# Getting all persons from db
+# Getting all blogs from db
 http://localhost:3003
 GET /api/blogs/
 
-# Getting specific person from db
-http://localhost:3001
-GET /api/persons/5edb31a04835e434361ac934
+# Getting specific blog from db
+http://localhost:3003
+GET /api/blogs/5edd97fc0b807b43dec1fe9c
 
-# Getting missing person from db
-http://localhost:3001
-GET /api/persons/99
+# Getting missing blog from db
+http://localhost:3003
+GET /api/blogs/99
 
-# Create new person in db
+# Create new blog in db
 http://localhost:3003
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVlZGQ5NjMzMDI4Njc0NDM4MjRmMGFkNCIsImlhdCI6MTU5MTYxNjM2Nn0.1dl1ipnXFABmh3cwyurGy_Z64XX76X9vu2t3mVm96-c
 POST /api/blogs
 {
-    "title":"Hello World",
+    "title":"Hello World 2",
     "author":"voltendron",
     "url":"https://pb-fso.herokuapp.com/",
-    "likes":49583
+    "likes":49583,
+    "userId":"5edd963302867443824f0ad4"
 }
 
-# Create new person in db
+# Create new blog in db
 http://localhost:3003
 Content-Type: application/json
-PUT /api/blogs/5edbaaf9ab4b3ebb3531ff62
+PUT /api/blogs/5edbaaf9ab4b3ebb3531ff61
 {
     "likes":12
 }
 
-http://localhost:3001
-# Deleting specific person from db
-DELETE /api/persons/5edb31e285ac9e316932c937
+# Deleting specific blog from db
+http://localhost:3003
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVlZGQ5NjMzMDI4Njc0NDM4MjRmMGFkNCIsImlhdCI6MTU5MTYxNjM2Nn0.1dl1ipnXFABmh3cwyurGy_Z64XX76X9vu2t3mVm96-c
+DELETE /api/blogs/5ede258d5cdca24821a44758
+
+# Getting all users
+http://localhost:3003
+GET /api/users
+
+http://localhost:3003
+Content-Type: application/json
+POST /api/users
+{
+    "username":"root",
+    "name":"Superuser",
+    "password":"toor"
+}
+
+http://localhost:3003
+Content-Type: application/json
+POST /api/users
+{
+    "username":"root",
+    "name":"Superuser",
+    "password":"to"
+}
+
+http://localhost:3003
+Content-Type: application/json
+POST /api/login
+{
+    "username":"root",
+    "password":"toor"
+}
