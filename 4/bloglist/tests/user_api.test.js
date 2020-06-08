@@ -14,16 +14,6 @@ describe('when there is initially one user in db', () => {
         const user = new User({ username: 'root', passwordHash })
 
         await user.save()
-
-        await Blog.deleteMany({})
-        const blogObjects = helper.initialBlogs.map(blog => (
-            new Blog({
-                ...blog,
-                userId: user.id
-            })
-        ))
-        const promiseArray = blogObjects.map(blog => blog.save())
-        await Promise.all(promiseArray)
     })
 
     test('creation succeeds with a fresh username', async () => {
@@ -69,18 +59,6 @@ describe('when there is initially one user in db', () => {
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
     })
 
-    test('query success with proper statuscode and message if username already taken', async () => {
-        const result = await api
-            .post('/api/blogs')
-            .send()
-            .expect(201)
-            .expect('Content-Type', /application\/json/)
-
-        expect(result.body.error).toContain('`username` to be unique')
-
-        const usersAtEnd = await helper.usersInDb()
-        expect(usersAtEnd).toHaveLength(usersAtStart.length)
-    })
 
     afterAll(() => {
         mongoose.connection.close()

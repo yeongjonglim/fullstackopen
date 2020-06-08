@@ -3,12 +3,42 @@ const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./test_helper')
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const api = supertest(app)
+
+let token
+let userId
+
+beforeAll(async () => {
+    //creates user and log user in
+    await User.deleteMany({})
+
+    const newUser = {
+        username: 'voltendron',
+        name: 'YJ L',
+        password: 'helloworld'
+    }
+
+    const createdUser = await api
+        .post('/api/users')
+        .send(newUser)
+
+    userId = createdUser.body.id
+
+    const loggedInUser = await api
+        .post('/api/login')
+        .send(newUser)
+
+    token = loggedInUser.body.token
+})
 
 beforeEach(async () => {
     await Blog.deleteMany({})
 
-    const blogObjects = helper.initialBlogs.map(blog => new Blog(blog))
+    const blogObjects = helper.initialBlogs.map(blog => new Blog({
+        ...blog,
+        user: userId
+    }))
     const promiseArray = blogObjects.map(blog => blog.save())
     await Promise.all(promiseArray)
 })
@@ -43,6 +73,7 @@ describe('when there is some initial blogs', () => {
 
 describe('when trying to add a blog', () => {
     test('a blog without title is not added', async () => {
+
         const newBlog = {
             author: 'Robert C. Martin',
             url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
@@ -51,6 +82,7 @@ describe('when trying to add a blog', () => {
 
         await api
             .post('/api/blogs')
+            .set('Authorization', 'Bearer ' + token)
             .send(newBlog)
             .expect(400)
 
@@ -63,11 +95,12 @@ describe('when trying to add a blog', () => {
         const newBlog = {
             title: 'Type wars',
             author: 'Robert C. Martin',
-            likes: 2
+            likes: 2,
         }
 
         await api
             .post('/api/blogs')
+            .set('Authorization', 'Bearer ' + token)
             .send(newBlog)
             .expect(400)
 
@@ -76,16 +109,35 @@ describe('when trying to add a blog', () => {
         expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
     })
 
+    test('a valid blog cannot be added without valid token', async () => {
+        const newBlog = {
+            title: 'Type wars',
+            author: 'Robert C. Martin',
+            url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
+            likes: 2,
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(401)
+            .expect('Content-Type', /application\/json/)
+
+        const blogsAtEnd = await helper.blogsInDb()
+        expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
+    })
+
     test('a valid blog can be added', async () => {
         const newBlog = {
             title: 'Type wars',
             author: 'Robert C. Martin',
             url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
-            likes: 2
+            likes: 2,
         }
 
         await api
             .post('/api/blogs')
+            .set('Authorization', 'Bearer ' + token)
             .send(newBlog)
             .expect(201)
             .expect('Content-Type', /application\/json/)
@@ -106,6 +158,7 @@ describe('when trying to add a blog', () => {
 
         await api
             .post('/api/blogs')
+            .set('Authorization', 'Bearer ' + token)
             .send(newBlog)
             .expect(201)
             .expect('Content-Type', /application\/json/)
@@ -124,6 +177,7 @@ describe('when trying to delete a blog', () => {
 
         await api
             .delete(`/api/blogs/${nonExistId}`)
+            .set('Authorization', 'Bearer ' + token)
             .expect(204)
 
         const blogsAtEnd = await helper.blogsInDb()
@@ -136,6 +190,7 @@ describe('when trying to delete a blog', () => {
 
         await api
             .delete(`/api/blogs/${blog.id}`)
+            .set('Authorization', 'Bearer ' + token)
             .expect(204)
 
         const blogsAtEnd = await helper.blogsInDb()

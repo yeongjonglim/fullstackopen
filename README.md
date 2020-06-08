@@ -1,4 +1,4 @@
-# Repository for Fullstack Training
+# Repository for Full Stack Open Exercises
 
 Tools used: 
 - [Vim](https://github.com/vim/vim)
@@ -28,3 +28,7 @@ Exercises(2.12 - 2.14): [Countries](/2/countries)<br>
 
 Exercises: [Phonebook (Backend + Frontend)](/3/phonebook)<br>
 Heroku: [Phonebook](https://pb-fso.herokuapp.com/)<br>
+
+## Part 4
+
+Exercises: [Bloglist](/4/bloglist)<br>
