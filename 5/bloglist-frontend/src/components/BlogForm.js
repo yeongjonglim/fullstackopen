@@ -5,7 +5,7 @@ const BlogForm = ({ createBlog }) => {
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
 
-    const handleChange = async (event) => {
+    const handleChange = (event) => {
         if (event.target.name === 'title') {
             setTitle(event.target.value)
         } else if (event.target.name === 'author') {
@@ -36,6 +36,7 @@ const BlogForm = ({ createBlog }) => {
                 <div>
                     title:
                     <input
+                        id="input--create-title"
                         type="text"
                         value={title}
                         name="title"
@@ -45,6 +46,7 @@ const BlogForm = ({ createBlog }) => {
                 <div>
                     author:
                     <input
+                        id="input--create-author"
                         type="text"
                         value={author}
                         name="author"
@@ -54,6 +56,7 @@ const BlogForm = ({ createBlog }) => {
                 <div>
                     url:
                     <input
+                        id="input--create-url"
                         type="url"
                         value={url}
                         name="url"
