@@ -51,9 +51,13 @@ const App = () => {
     }
 
     const removeBlog = async (blogObject) => {
-        await blogService.remove(blogObject.id)
-        setBlogs( blogs.filter(blog => blog.id !== blogObject.id) )
-        messageHandler(`${blogObject.title}${blogObject.author && ` by ${blogObject.author}`} removed`, 'inform')
+        try {
+            await blogService.remove(blogObject.id)
+            setBlogs( blogs.filter(blog => blog.id !== blogObject.id) )
+            messageHandler(`${blogObject.title}${blogObject.author && ` by ${blogObject.author}`} removed`, 'inform')
+        } catch(exception) {
+            messageHandler('Unauthorised to delete blog', 'error')
+        }
     }
 
     const layoutSelection = () => {
