@@ -31,4 +31,8 @@ Heroku: [Phonebook](https://pb-fso.herokuapp.com/)<br>
 
 ## Part 4
 
-Exercises: [Bloglist](/4/bloglist)<br>
+Exercises: [Bloglist (Backend)](/4/bloglist)<br>
+
+## Part 5
+
+Exercises: [Bloglist (Frontend)](/5/bloglist-frontend)<br>
