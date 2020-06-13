@@ -2,39 +2,45 @@ const initialState = ''
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ERROR':
-            return action.data.message
-
         case 'INFORM':
             return action.data.message
 
         case 'RESET':
-            return initialState
+            if (action.data.id === nextNotificationId - 1) {
+                return initialState
+            }
+            return state
 
         default:
             return state
     }
 }
 
-const showNotification = (message, type) => {
+const showNotification = (id, message) => {
     return {
-        type,
-        data: {message}
+        type: 'INFORM',
+        data: { id, message }
     }
 }
 
-const hideNotification = () => {
+const hideNotification = (id) => {
     return {
-        type: 'RESET'
+        type: 'RESET',
+        data: { id }
     }
 }
 
-export const generateNotification = (dispatch, message, type) => {
-    dispatch(showNotification(message, type))
+let nextNotificationId = 0
+export const setNotification = (message, timeout=5) => {
+    return dispatch => {
 
-    setTimeout(() => {
-        dispatch(hideNotification())
-    }, 5000)
+        const id = nextNotificationId++
+        dispatch(showNotification(id, message))
+
+        setTimeout(() => {
+            dispatch(hideNotification(id))
+        }, timeout*1000)
+    }
 }
 
 export default reducer

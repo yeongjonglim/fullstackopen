@@ -1,14 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+//import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { filterList } from '../reducers/filterReducer'
 
-const Filter = () => {
-    const dispatch = useDispatch()
+const VisibilityFilter = ({ filterList }) => {
+    //const dispatch = useDispatch()
 
     const handleChange = (event) => {
         // input-field value is in variable event.target.value
         const filterText = event.target.value
-        dispatch(filterList(filterText))
+        filterList(filterText)
     }
 
     const style = {
@@ -22,4 +23,13 @@ const Filter = () => {
     )
 }
 
-export default Filter
+const mapDispatchToProps = {
+    filterList,
+}
+
+const ConnectedVisibilityFilter = connect(
+    null,
+    mapDispatchToProps
+)(VisibilityFilter)
+
+export default ConnectedVisibilityFilter
