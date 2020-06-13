@@ -36,3 +36,8 @@ Exercises: [Bloglist (Backend)](/4/bloglist)<br>
 ## Part 5
 
 Exercises: [Bloglist (Frontend)](/5/bloglist-frontend)<br>
+
+## Part 6
+
+Unicafe: [Unicafe](/6/unicafe-redux)<br>
+Anecdotes: [Anecdotes](/6/redux-anecdotes)<br>
