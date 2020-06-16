@@ -1,0 +1,75 @@
+# Getting all blogs from db
+http://localhost:3001
+GET /api/blogs/
+
+# Getting specific blog from db
+http://localhost:3001
+GET /api/blogs/5edd97fc0b807b43dec1fe9c
+
+# Getting missing blog from db
+http://localhost:3001
+GET /api/blogs/99
+
+# Create new blog in db
+http://localhost:3001
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVlZGQ5NjMzMDI4Njc0NDM4MjRmMGFkNCIsImlhdCI6MTU5MTYxNjM2Nn0.1dl1ipnXFABmh3cwyurGy_Z64XX76X9vu2t3mVm96-c
+POST /api/blogs
+{
+    "title":"Hello World 2",
+    "author":"voltendron",
+    "url":"https://pb-fso.herokuapp.com/",
+    "likes":49583,
+    "userId":"5edd963302867443824f0ad4"
+}
+
+# Update blog with new like count
+http://localhost:3001
+Content-Type: application/json
+PUT /api/blogs/5edbaaf9ab4b3ebb3531ff61
+{
+    "likes":12
+}
+
+# Update blog with new comments
+http://localhost:3001
+Content-Type: application/json
+POST /api/blogs/5edd97fc0b807b43dec1fe9c/comments
+{
+    "comments":["Hello World 4 comments", "Hello World 1"]
+}
+
+# Deleting specific blog from db
+http://localhost:3001
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVlZGQ5NjMzMDI4Njc0NDM4MjRmMGFkNCIsImlhdCI6MTU5MTYxNjM2Nn0.1dl1ipnXFABmh3cwyurGy_Z64XX76X9vu2t3mVm96-c
+DELETE /api/blogs/5ede258d5cdca24821a44758
+
+# Getting all users
+http://localhost:3001
+GET /api/users
+
+http://localhost:3001
+Content-Type: application/json
+POST /api/users
+{
+    "username":"voltendron",
+    "name":"YJ L",
+    "password":"toor"
+}
+
+http://localhost:3001
+Content-Type: application/json
+POST /api/users
+{
+    "username":"root",
+    "name":"Superuser",
+    "password":"to"
+}
+
+http://localhost:3001
+Content-Type: application/json
+POST /api/login
+{
+    "username":"root",
+    "password":"toor"
+}
