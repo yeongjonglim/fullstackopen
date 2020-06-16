@@ -44,7 +44,7 @@ Anecdotes: [Anecdotes](/6/redux-anecdotes)<br>
 
 ## Part 7
 
-Exercises (7.1-7.6): [Routed Anecdotes](/7/routed-anecdotes)<br>
+Exercises (7.1 - 7.6): [Routed Anecdotes](/7/routed-anecdotes)<br>
 Exercises (7.7): [Country Hook](/7/country-hook)<br>
 Exercises (7.8): [Ultimate Hook](/7/ultimate-hooks)<br>
-Exercises (7.9-7.21): [Upgraded Bloglist](/7/bloglist-upgraded)<br>
+Exercises (7.9 - 7.21): [Upgraded Bloglist](/7/bloglist-upgraded)<br>
