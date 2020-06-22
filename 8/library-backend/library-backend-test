@@ -1,0 +1,79 @@
+# Write your query or mutation here
+query dbCount {
+  bookCount
+  authorCount
+}
+
+query allBooks {
+  allBooks {
+    title
+    author
+    published
+    genres
+  }
+}
+
+query allBooksByAuthor {
+  allBooks(author: "Robert Martin") {
+    title
+  }
+}
+
+query allBooksByGenre {
+  allBooks(genre: "refactoring") {
+    title
+    author
+  }
+}
+
+query allBooksByAuthorAndGenre {
+  allBooks(author: "Robert Martin", genre: "refactoring") {
+    title
+    author
+  }
+}
+
+query allAuthors {
+  allAuthors {
+    name
+    bookCount
+  }
+}
+
+mutation addBook {
+  addBook(
+    title: "NoSQL Distilled",
+    author: "Martin Fowler",
+    published: 2012,
+    genres: ["database", "nosql"]
+  ) {
+    title,
+    author
+  }
+}
+
+mutation addBookNonExistAuthor {
+  addBook(
+    title: "Pimeyden tango",
+    author: "Reijo Mäki",
+    published: 1997,
+    genres: ["crime"]
+  ) {
+    title,
+    author
+  }
+}
+
+mutation editAuthor{
+  editAuthor(name: "Reijo Mäki", setBornTo: 1958) {
+    name
+    born
+  }
+}
+
+mutation editNonExistAuthor{
+  editAuthor(name: "Helo", setBornTo: 1958) {
+    name
+    born
+  }
+}
