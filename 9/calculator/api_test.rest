@@ -1,0 +1,26 @@
+http://localhost:3003
+POST /exercises
+{
+    "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+    "target": 2.5
+}
+
+http://localhost:3003
+POST /exercises
+{
+    "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5]
+}
+
+http://localhost:3003
+POST /exercises
+{
+    "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+    "target": "abc"
+}
+
+http://localhost:3003
+POST /exercises
+{
+    "daily_exercises": ["nj", 0, 2, 0, 3, 0, 2.5],
+    "target": 2.5
+}
