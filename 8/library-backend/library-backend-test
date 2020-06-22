@@ -7,14 +7,17 @@ query dbCount {
 query allBooks {
   allBooks {
     title
-    author
+    author {
+      name
+      born
+    }
     published
     genres
   }
 }
 
 query allBooksByAuthor {
-  allBooks(author: "Robert Martin") {
+  allBooks(author: "Martin Fowler") {
     title
   }
 }
@@ -22,14 +25,20 @@ query allBooksByAuthor {
 query allBooksByGenre {
   allBooks(genre: "refactoring") {
     title
-    author
+    author {
+      name
+      born
+    }
   }
 }
 
 query allBooksByAuthorAndGenre {
   allBooks(author: "Robert Martin", genre: "refactoring") {
     title
-    author
+    author {
+      name
+      born
+    }
   }
 }
 
@@ -40,40 +49,94 @@ query allAuthors {
   }
 }
 
+query loggedInUser {
+  me {
+    username
+    favoriteGenre
+  }
+}
+
 mutation addBook {
   addBook(
-    title: "NoSQL Distilled",
-    author: "Martin Fowler",
-    published: 2012,
-    genres: ["database", "nosql"]
+    title: "The Demon",
+    published: 1872,
+    author: "Fyodor Dostoevsky",
+    genres: ["classic", "revolution"]
   ) {
-    title,
-    author
+    title
+    author {
+      name
+      born
+    }
   }
 }
 
 mutation addBookNonExistAuthor {
   addBook(
-    title: "Pimeyden tango",
-    author: "Reijo Mäki",
-    published: 1997,
+    title: "Pimeyden tango"
+    author: "Reijo Mäki"
+    published: 1997
     genres: ["crime"]
   ) {
-    title,
-    author
+    title
+    author {
+      name
+      born
+    }
   }
 }
 
-mutation editAuthor{
+mutation editAuthor {
   editAuthor(name: "Reijo Mäki", setBornTo: 1958) {
     name
     born
   }
 }
 
-mutation editNonExistAuthor{
+mutation editNonExistAuthor {
   editAuthor(name: "Helo", setBornTo: 1958) {
     name
     born
   }
 }
+
+mutation addNewBook {
+  addBook(
+    title: "NoSQL Distilled"
+    author: "Martin Fowler"
+    published: 2012
+    genres: ["database", "nosql"]
+  ) {
+    title
+    author {
+      name
+      born
+    }
+  }
+}
+
+mutation createUser {
+  createUser(username: "root", favoriteGenre: "database") {
+    username
+    favoriteGenre
+  }
+}
+
+mutation loginUser {
+  login(username: "root", password: "toor") {
+    value
+  }
+}
+
+subscription bookAdded {
+  bookAdded {
+    title
+    author {
+      name
+      born
+    }
+    published
+    genres
+  }
+}
+
