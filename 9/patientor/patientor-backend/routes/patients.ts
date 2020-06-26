@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get('/', (_req, res) => {
     res.status(200).send(patientService.getNonSensitiveEntries());
-    console.log(patientService.getNonSensitiveEntries());
 });
 
 router.post('/', (req, res) => {

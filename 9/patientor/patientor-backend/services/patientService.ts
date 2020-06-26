@@ -1,6 +1,14 @@
-import patientEntries from '../data/patients';
+import patientData from '../data/patients.json';
 import { v1 as uuid } from 'uuid';
 import { NonSensitivePatientEntry, NewPatientEntry, PatientEntry } from '../src/types';
+import toNewPatientEntry from "../src/utils";
+
+let patientEntries: PatientEntry[] = patientData.map(obj => {
+    const object = toNewPatientEntry(obj) as PatientEntry;
+    object.id = obj.id;
+    return object;
+});
+
 
 const getEntries = (): PatientEntry[] => {
     return patientEntries;
@@ -17,6 +25,7 @@ const addEntry = ( entry: NewPatientEntry ): PatientEntry => {
         id: uuid(),
         ...entry
     };
+    patientEntries = patientEntries.concat(newPatientEntry);
     return newPatientEntry;
 };
 
