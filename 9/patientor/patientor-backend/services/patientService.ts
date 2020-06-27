@@ -1,6 +1,6 @@
 import patientData from '../data/patients.json';
 import { v1 as uuid } from 'uuid';
-import { NonSensitivePatientEntry, NewPatientEntry, PatientEntry } from '../src/types';
+import { NonSensitivePatientEntry, NewPatientEntry, PatientEntry, Patient, Entry } from '../src/types';
 import toNewPatientEntry from "../src/utils";
 
 let patientEntries: PatientEntry[] = patientData.map(obj => {
@@ -14,10 +14,27 @@ const getEntries = (): PatientEntry[] => {
     return patientEntries;
 };
 
+const getEntry = (id: string): Patient | undefined => {
+    const patientEntry = patientEntries.find(patient => patient.id === id);
+
+    const newEntry: Entry[] = [];
+
+    const patient = {
+        ...patientEntry,
+        entries: newEntry
+    } as Patient;
+
+    return patient;
+};
+
 const getNonSensitiveEntries = (): NonSensitivePatientEntry[] => {
-    patientEntries.forEach(p => delete p.ssn);
+    const nonSensitive = patientEntries.map(p => {
+        const newP = {...p};
+        delete newP.ssn;
+        return newP;
+    });
     // Omit is not actually stopping the key from being present in the object
-    return patientEntries;
+    return nonSensitive;
 };
 
 const addEntry = ( entry: NewPatientEntry ): PatientEntry => {
@@ -31,6 +48,7 @@ const addEntry = ( entry: NewPatientEntry ): PatientEntry => {
 
 export default {
     getEntries,
+    getEntry,
     getNonSensitiveEntries,
     addEntry
 };
