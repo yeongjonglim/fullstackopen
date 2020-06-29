@@ -53,3 +53,9 @@ Exercises (7.9 - 7.21): [Upgraded Bloglist](/7/bloglist-upgraded)<br>
 
 Exercises: [Library (Backend)](/8/library-backend)<br>
 Exercises: [Library (Frontend)](/8/library-frontend)<br>
+
+## Part 9
+
+Exercises (9.1 - 9.7): [Calculator](/9/calculator)<br>
+Exercises (9.14 - 9.15): [Course Info](/9/courseinfo)<br>
+Exercises (9.8 - 9.13, 9.16 - 9.27): [Patientor](/9/patientor)<br>
